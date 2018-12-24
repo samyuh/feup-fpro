@@ -70,14 +70,11 @@ def to_remove(tup):
 
 #Atualizar o tabuleiro
 def tabuleiro_update(color1, color2, color3, color4, color5):
-    if not winner:
+    if not winner and not loser:
         for y in range(len(tabuleiro)):
             for x in range(len(tabuleiro[0])):
                 if tabuleiro[y][x] == 0:
-                    block = pygame.Surface((20, 20))
-                    pos = (105+30*x, 150+30*y)
-                    block.fill((0,0,0))
-                    screen.blit(block, pos)
+                    pygame.draw.rect(screen, (0,0,0), (105+30*x, 150+30*y, 20, 20))
                 else:    
                     pos = (105+30*x, 150+30*y)
                     if tabuleiro[y][x] == 1:
@@ -103,12 +100,22 @@ def search_zero():
 
 #Ganhou o jogo se todos os blocos forem 0:
 def win():
-    for linha in tabuleiro:
-        for block in linha:
-            if block != 0:
-                return False
-    return True
+    if not winner and not loser:
+        for linha in tabuleiro:
+            for block in linha:
+                if block != 0:
+                    return False
+        return True
 
+def lose(): 
+    if not winner and not loser:
+        for y in range(len(tabuleiro)):
+            for x in range(len(tabuleiro[0])):
+                if len(player_select(y, x, [])) != 0:
+                    return False
+        return True
+            
+            
 ############################################################################## MAIN FUNCTIONS
 ##JOGO m
 def main_game(n, color1, color2, color3, color4, color5):
@@ -126,16 +133,32 @@ def main_game(n, color1, color2, color3, color4, color5):
     pontos = 0
     #Venceu
     global winner
+    global loser
     winner = False
-
+    loser = False
+    
     #Dá instrução para criar o tabuleiro de jogo global
     global tabuleiro
     tabuleiro = novo_tabuleiro(n, color1, color2, color3, color4, color5)
-
+    
+    winlose=pygame.time.get_ticks()
     #Loop do jogo
     while True:
-        ##Eventos
-        #Clique do rato
+        ##Eventos 
+        #Ver se ganhou ou perdeu
+        seconds=(pygame.time.get_ticks()-winlose)/1000
+        if seconds >= 2:
+            if win():
+                winner = True
+                bg = pygame.image.load("Menu/win.png")
+                screen.blit(bg, (100, 145))
+            
+            if lose():
+                loser = True
+                bg = pygame.image.load("Menu/loser.png")
+                screen.blit(bg, (100, 145))
+            winlose = pygame.time.get_ticks()
+        #clique do rato
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN and mouse_click == False:
                 start_time = pygame.time.get_ticks()
@@ -143,7 +166,7 @@ def main_game(n, color1, color2, color3, color4, color5):
                 (j, i) = pygame.mouse.get_pos()
                 y = (i-150)/30
                 x = (j-105)/30
-                if 0 <= (y-int(y)) <= 0.7 and 0 < (x-int(x)) < 0.7:
+                if 0 <= (y-int(y)+0.2) <= 0.9 and 0 < (x-int(x)+0.2) < 0.9:
                     pieces = player_select(int(y), int(x), []) 
                     if len(pieces) != 0:
                         pontos += (len(pieces))*(len(pieces)-1)
@@ -159,14 +182,8 @@ def main_game(n, color1, color2, color3, color4, color5):
                 mouse_click = False
             #Sair do jogo
             if event.type == pygame.QUIT:
+                pygame.quit()
                 exit() 
-        
-        #Ver se ganhou
-        if win():
-            winner = True
-            bg = pygame.image.load("Menu/win.png")
-            screen.blit(bg, (100, 145))
-          
         
         #Atualizar o tabuleiro
         search_zero()
@@ -175,10 +192,10 @@ def main_game(n, color1, color2, color3, color4, color5):
 
     
         #Sistema de pontuação
-        rect = pygame.draw.rect(screen, (255,255,255), [310, 23, 99, 27])
+        rect = pygame.draw.rect(screen, (255,201,14), [310, 23, 99, 27])
         screen.blit(fonte.render(str(pontos), 1, (0,0,0)), (350, 27))   
     
-
+        
         #Atualizar o ecrã
         pygame.display.flip()
 
@@ -196,11 +213,11 @@ def main_menu():
     pygame.display.update()
 
     #Carrega circulos
-    color1 = pygame.image.load("skins/circleblue.png")
-    color2 = pygame.image.load("skins/circlered.png")
-    color3 = pygame.image.load("skins/circlegreen.png")
-    color4 = pygame.image.load("skins/circleyellow.png")
-    color5 = pygame.image.load("skins/circlepurple.png") 
+    color1 = pygame.image.load("Skins/circleblue.png")
+    color2 = pygame.image.load("Skins/circlered.png")
+    color3 = pygame.image.load("Skins/circlegreen.png")
+    color4 = pygame.image.load("Skins/circleyellow.png")
+    color5 = pygame.image.load("Skins/circlepurple.png") 
 
     #Eventos do ecrã inicial
     while True:
@@ -221,26 +238,46 @@ def main_menu():
                     break  
                 #Escolher Circulo
                 if 100 < j < 200 and 225 < i < 325:
-                    color1 = pygame.image.load("skins/circleblue.png")
-                    color2 = pygame.image.load("skins/circlered.png")
-                    color3 = pygame.image.load("skins/circlegreen.png")
-                    color4 = pygame.image.load("skins/circleyellow.png")
-                    color5 = pygame.image.load("skins/circlepurple.png")   
+                    color1 = pygame.image.load("Skins/circleblue.png")
+                    color2 = pygame.image.load("Skins/circlered.png")
+                    color3 = pygame.image.load("Skins/circlegreen.png")
+                    color4 = pygame.image.load("Skins/circleyellow.png")
+                    color5 = pygame.image.load("Skins/circlepurple.png")   
+                    ball = pygame.image.load("Select/ball_light.png")
+                    heart = pygame.image.load("Select/heart_dark.png")
+                    star = pygame.image.load("Select/star_dark.png")
+                    screen.blit(ball, (99, 220))
+                    screen.blit(heart, (401, 219))
+                    screen.blit(star, (225, 115))
                 #Escolher Coração #Colocar para só quem já desbloqueou usar
                 if 400 < j < 500 and 225 < i < 325: 
-                    color1 = pygame.image.load("skins/heartblue.png")
-                    color2 = pygame.image.load("skins/heartred.png")
-                    color3 = pygame.image.load("skins/heartgreen.png")
-                    color4 = pygame.image.load("skins/heartyellow.png")
-                    color5 = pygame.image.load("skins/heartpurple.png")                 
+                    color1 = pygame.image.load("Skins/heartblue.png")
+                    color2 = pygame.image.load("Skins/heartred.png")
+                    color3 = pygame.image.load("Skins/heartgreen.png")
+                    color4 = pygame.image.load("Skins/heartyellow.png")
+                    color5 = pygame.image.load("Skins/heartpurple.png")
+                    ball = pygame.image.load("Select/ball_dark.png")
+                    heart = pygame.image.load("Select/heart_light.png")
+                    star = pygame.image.load("Select/star_dark.png")
+                    screen.blit(ball, (99, 220))
+                    screen.blit(heart, (401, 219))
+                    screen.blit(star, (225, 115))
                 #Escolher Estrela #Colocar para só quem já desbloqueou usar
                 if 225 < j < 375 and 115 < i < 270: 
-                    color1 = pygame.image.load("skins/starblue.png")
-                    color2 = pygame.image.load("skins/starred.png")
-                    color3 = pygame.image.load("skins/stargreen.png")
-                    color4 = pygame.image.load("skins/staryellow.png")
-                    color5 = pygame.image.load("skins/starpurple.png")    
+                    color1 = pygame.image.load("Skins/starblue.png")
+                    color2 = pygame.image.load("Skins/starred.png")
+                    color3 = pygame.image.load("Skins/stargreen.png")
+                    color4 = pygame.image.load("Skins/staryellow.png")
+                    color5 = pygame.image.load("Skins/starpurple.png")  
+                    ball = pygame.image.load("Select/ball_dark.png")
+                    heart = pygame.image.load("Select/heart_dark.png")
+                    star = pygame.image.load("Select/star_light.png")
+                    screen.blit(ball, (99, 220))
+                    screen.blit(heart, (401, 219))
+                    screen.blit(star, (225, 115))
+                    
             if event.type == pygame.QUIT:
+                pygame.quit()
                 exit()
           
         pygame.display.flip()
