@@ -129,7 +129,7 @@ def main_game(n, color1, color2, color3, color4, color5):
     #Pontos
     pygame.font.init()
     fonte = pygame.font.Font(pygame.font.get_default_font(), 20)
-    screen.blit(fonte.render("Pontuação: ", 1, (0,0,0)), (190, 27)) 
+    screen.blit(fonte.render("Score: ", 1, (0,0,0)), (190, 27)) 
     pontos = 0
     #Venceu
     global winner
