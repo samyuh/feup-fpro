@@ -5,6 +5,7 @@ from pygame.locals import *
 
 #Criar um tabuleiro aleatório
 def novo_tabuleiro(n, color1, color2, color3, color4, color5):
+    
     #Criar a matriz
     tabuleiro = []
     for _ in range(15):
@@ -12,6 +13,7 @@ def novo_tabuleiro(n, color1, color2, color3, color4, color5):
         for _ in range(13):
             game_matrix += [random.randint(1,n),]
         tabuleiro += [game_matrix,]
+
     #Criar a parte gráfica
     for y in range(15):
         for x in range(13):   
@@ -117,7 +119,9 @@ def lose():
             
             
 ############################################################################## MAIN FUNCTIONS
-##JOGO m
+
+
+##JOGO 
 def main_game(n, color1, color2, color3, color4, color5):
     #Ecrã do inicio do jogo
     bg = pygame.image.load("Menu/bg1.png")
@@ -147,7 +151,7 @@ def main_game(n, color1, color2, color3, color4, color5):
         ##Eventos 
         #Ver se ganhou ou perdeu
         seconds=(pygame.time.get_ticks()-winlose)/1000
-        if seconds >= 2:
+        if seconds >= 0.75:
             if win():
                 winner = True
                 bg = pygame.image.load("Menu/win.png")
@@ -157,7 +161,7 @@ def main_game(n, color1, color2, color3, color4, color5):
                 loser = True
                 bg = pygame.image.load("Menu/loser.png")
                 screen.blit(bg, (100, 145))
-            winlose = pygame.time.get_ticks()
+            
         #clique do rato
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN and mouse_click == False:
@@ -169,6 +173,7 @@ def main_game(n, color1, color2, color3, color4, color5):
                 if 0 <= (y-int(y)+0.2) <= 0.9 and 0 < (x-int(x)+0.2) < 0.9:
                     pieces = player_select(int(y), int(x), []) 
                     if len(pieces) != 0:
+                        winlose = pygame.time.get_ticks()
                         pontos += (len(pieces))*(len(pieces)-1)
                         to_remove(pieces)  
                 if 450 < j < 595 and 15 < i < 60:
@@ -177,9 +182,11 @@ def main_game(n, color1, color2, color3, color4, color5):
                 if 10 < j < 150 and 15 < i < 60:
                     main_menu()
                     break
+
             #Controlar quando o jogador pode carregar novamente
             if mouse_click == True and (pygame.time.get_ticks() - start_time >= 100):
                 mouse_click = False
+
             #Sair do jogo
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -190,16 +197,16 @@ def main_game(n, color1, color2, color3, color4, color5):
         eliminar_coluna()
         tabuleiro_update(color1, color2, color3, color4, color5)
 
-    
         #Sistema de pontuação
         rect = pygame.draw.rect(screen, (255,201,14), [310, 23, 99, 27])
-        screen.blit(fonte.render(str(pontos), 1, (0,0,0)), (350, 27))   
-    
+        screen.blit(fonte.render(str(pontos), 1, (0,0,0)), (350, 27))       
         
         #Atualizar o ecrã
         pygame.display.flip()
 
+
 ##MENU PRINCIPAL
+
 
 def main_menu():
     pygame.init()
@@ -228,14 +235,17 @@ def main_menu():
                 if 50 < j < 200 and 425 < i < 490:
                     main_game(2, color1, color2, color3, color4, color5)
                     break
+                
                 #Botão Medium
                 if 200 < j < 400 and 425 < i < 490:
                     main_game(4, color1, color2, color3, color4, color5)
                     break
+                
                 #Botão Hard
                 if 400 < j < 550 and 425 < i < 490:
                     main_game(5, color1, color2, color3, color4, color5)
                     break  
+                
                 #Escolher Circulo
                 if 100 < j < 200 and 225 < i < 325:
                     color1 = pygame.image.load("Skins/circleblue.png")
@@ -249,6 +259,7 @@ def main_menu():
                     screen.blit(ball, (99, 220))
                     screen.blit(heart, (401, 219))
                     screen.blit(star, (225, 115))
+                
                 #Escolher Coração #Colocar para só quem já desbloqueou usar
                 if 400 < j < 500 and 225 < i < 325: 
                     color1 = pygame.image.load("Skins/heartblue.png")
@@ -262,6 +273,7 @@ def main_menu():
                     screen.blit(ball, (99, 220))
                     screen.blit(heart, (401, 219))
                     screen.blit(star, (225, 115))
+                
                 #Escolher Estrela #Colocar para só quem já desbloqueou usar
                 if 225 < j < 375 and 115 < i < 270: 
                     color1 = pygame.image.load("Skins/starblue.png")
@@ -275,7 +287,8 @@ def main_menu():
                     screen.blit(ball, (99, 220))
                     screen.blit(heart, (401, 219))
                     screen.blit(star, (225, 115))
-                    
+
+            #Sair do Jogo        
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
