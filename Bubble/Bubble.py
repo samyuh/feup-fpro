@@ -225,7 +225,16 @@ def main_menu():
     color3 = pygame.image.load("Skins/circlegreen.png")
     color4 = pygame.image.load("Skins/circleyellow.png")
     color5 = pygame.image.load("Skins/circlepurple.png") 
-
+    #Selecionado
+    ball = pygame.image.load("Select/ball_light.png")
+    heart = pygame.image.load("Select/heart_light.png")
+    star = pygame.image.load("Select/star_light.png")
+    #Não selecionado
+    ball_dark = pygame.image.load("Select/ball_dark.png")
+    heart_dark = pygame.image.load("Select/heart_dark.png")
+    star_dark = pygame.image.load("Select/star_dark.png")
+    
+    
     #Eventos do ecrã inicial
     while True:
         for event in pygame.event.get():
@@ -233,7 +242,7 @@ def main_menu():
                 (j, i) = pygame.mouse.get_pos()
                 #Botão Easy
                 if 50 < j < 200 and 425 < i < 490:
-                    main_game(2, color1, color2, color3, color4, color5)
+                    main_game(3, color1, color2, color3, color4, color5)
                     break
                 
                 #Botão Medium
@@ -252,13 +261,10 @@ def main_menu():
                     color2 = pygame.image.load("Skins/circlered.png")
                     color3 = pygame.image.load("Skins/circlegreen.png")
                     color4 = pygame.image.load("Skins/circleyellow.png")
-                    color5 = pygame.image.load("Skins/circlepurple.png")   
-                    ball = pygame.image.load("Select/ball_light.png")
-                    heart = pygame.image.load("Select/heart_dark.png")
-                    star = pygame.image.load("Select/star_dark.png")
+                    color5 = pygame.image.load("Skins/circlepurple.png")                     
                     screen.blit(ball, (99, 220))
-                    screen.blit(heart, (401, 219))
-                    screen.blit(star, (225, 115))
+                    screen.blit(heart_dark, (401, 219))
+                    screen.blit(star_dark, (225, 115))
                 
                 #Escolher Coração #Colocar para só quem já desbloqueou usar
                 if 400 < j < 500 and 225 < i < 325: 
@@ -266,13 +272,10 @@ def main_menu():
                     color2 = pygame.image.load("Skins/heartred.png")
                     color3 = pygame.image.load("Skins/heartgreen.png")
                     color4 = pygame.image.load("Skins/heartyellow.png")
-                    color5 = pygame.image.load("Skins/heartpurple.png")
-                    ball = pygame.image.load("Select/ball_dark.png")
-                    heart = pygame.image.load("Select/heart_light.png")
-                    star = pygame.image.load("Select/star_dark.png")
-                    screen.blit(ball, (99, 220))
+                    color5 = pygame.image.load("Skins/heartpurple.png")    
+                    screen.blit(ball_dark, (99, 220))
                     screen.blit(heart, (401, 219))
-                    screen.blit(star, (225, 115))
+                    screen.blit(star_dark, (225, 115))
                 
                 #Escolher Estrela #Colocar para só quem já desbloqueou usar
                 if 225 < j < 375 and 115 < i < 270: 
@@ -280,12 +283,9 @@ def main_menu():
                     color2 = pygame.image.load("Skins/starred.png")
                     color3 = pygame.image.load("Skins/stargreen.png")
                     color4 = pygame.image.load("Skins/staryellow.png")
-                    color5 = pygame.image.load("Skins/starpurple.png")  
-                    ball = pygame.image.load("Select/ball_dark.png")
-                    heart = pygame.image.load("Select/heart_dark.png")
-                    star = pygame.image.load("Select/star_light.png")
-                    screen.blit(ball, (99, 220))
-                    screen.blit(heart, (401, 219))
+                    color5 = pygame.image.load("Skins/starpurple.png")                
+                    screen.blit(ball_dark, (99, 220))
+                    screen.blit(heart_dark, (401, 219))
                     screen.blit(star, (225, 115))
 
             #Sair do Jogo        
