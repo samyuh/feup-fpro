@@ -116,16 +116,13 @@ def lose():
                 if len(player_select(y, x, [])) != 0:
                     return False
         return True
-            
-            
+                      
 ############################################################################## MAIN FUNCTIONS
 
-
 ##JOGO 
-def main_game(n, color1, color2, color3, color4, color5):
+def main_game(n, color1, color2, color3, color4, color5, bg):
     #Ecrã do inicio do jogo
-    bg = pygame.image.load("Menu/bg1.png")
-    screen.blit(bg, (0, 0))
+    screen.blit(pygame.image.load("Menu/bg1.png"), (0, 0))
 
     #Evitar spam do click do rato
     mouse_click = False
@@ -153,14 +150,12 @@ def main_game(n, color1, color2, color3, color4, color5):
         seconds=(pygame.time.get_ticks()-winlose)/1000
         if seconds >= 0.75:
             if win():
-                winner = True
-                bg = pygame.image.load("Menu/win.png")
-                screen.blit(bg, (100, 145))
+                winner = True           
+                screen.blit(pygame.image.load("Menu/win.png"), (100, 145))
             
             if lose():
                 loser = True
-                bg = pygame.image.load("Menu/loser.png")
-                screen.blit(bg, (100, 145))
+                screen.blit(pygame.image.load("Menu/loser.png"), (100, 145))
             
         #clique do rato
         for event in pygame.event.get():
@@ -177,10 +172,10 @@ def main_game(n, color1, color2, color3, color4, color5):
                         pontos += (len(pieces))*(len(pieces)-1)
                         to_remove(pieces)  
                 if 450 < j < 595 and 15 < i < 60:
-                    main_game(n, color1, color2, color3, color4, color5)
+                    main_game(n, color1, color2, color3, color4, color5, bg)
                     break
                 if 10 < j < 150 and 15 < i < 60:
-                    main_menu()
+                    main_menu(color1, color2, color3, color4, color5, bg)
                     break
 
             #Controlar quando o jogador pode carregar novamente
@@ -190,7 +185,7 @@ def main_game(n, color1, color2, color3, color4, color5):
             #Sair do jogo
             if event.type == pygame.QUIT:
                 pygame.quit()
-                exit() 
+                exit()
         
         #Atualizar o tabuleiro
         search_zero()
@@ -208,33 +203,28 @@ def main_game(n, color1, color2, color3, color4, color5):
 ##MENU PRINCIPAL
 
 
-def main_menu():
+def main_menu(color1, color2, color3, color4, color5, background):
     pygame.init()
     pygame.display.set_caption('Bubblets!')
 
     #Cria o ecrã global do jogo
     global screen
     screen = pygame.display.set_mode((600, 600))
-    bg = pygame.image.load("Menu/main_menu1.png")
-    screen.blit(bg, (0, 0))
-    pygame.display.update()
-
-    #Carrega circulos
-    color1 = pygame.image.load("Skins/circleblue.png")
-    color2 = pygame.image.load("Skins/circlered.png")
-    color3 = pygame.image.load("Skins/circlegreen.png")
-    color4 = pygame.image.load("Skins/circleyellow.png")
-    color5 = pygame.image.load("Skins/circlepurple.png") 
-    #Selecionado
-    ball = pygame.image.load("Select/ball_light.png")
-    heart = pygame.image.load("Select/heart_light.png")
-    star = pygame.image.load("Select/star_light.png")
-    #Não selecionado
-    ball_dark = pygame.image.load("Select/ball_dark.png")
-    heart_dark = pygame.image.load("Select/heart_dark.png")
-    star_dark = pygame.image.load("Select/star_dark.png")
     
-    
+    #Criar o background
+    background_circle = pygame.image.load("Menu/background_circle.png")
+    background_heart = pygame.image.load("Menu/background_heart.png")  
+    background_star = pygame.image.load("Menu/background_star.png") 
+    if background == "circle":
+        screen.blit(background_circle, (0, 0))
+        bg = "circle"
+    elif background == "heart":
+        screen.blit(background_heart, (0, 0))
+        bg = "heart"
+    elif background == "star":
+        screen.blit(background_star, (0, 0))
+        bg = "star"
+    pygame.display.update()    
     #Eventos do ecrã inicial
     while True:
         for event in pygame.event.get():
@@ -242,59 +232,59 @@ def main_menu():
                 (j, i) = pygame.mouse.get_pos()
                 #Botão Easy
                 if 50 < j < 200 and 425 < i < 490:
-                    main_game(3, color1, color2, color3, color4, color5)
+                    main_game(3, color1, color2, color3, color4, color5, bg)
                     break
                 
                 #Botão Medium
                 if 200 < j < 400 and 425 < i < 490:
-                    main_game(4, color1, color2, color3, color4, color5)
+                    main_game(4, color1, color2, color3, color4, color5, bg)
                     break
                 
                 #Botão Hard
                 if 400 < j < 550 and 425 < i < 490:
-                    main_game(5, color1, color2, color3, color4, color5)
+                    main_game(5, color1, color2, color3, color4, color5, bg)
                     break  
                 
                 #Escolher Circulo
-                if 100 < j < 200 and 225 < i < 325:
+                if 100 < j < 200 and 265 < i < 365:
+                    bg = "circle"
                     color1 = pygame.image.load("Skins/circleblue.png")
                     color2 = pygame.image.load("Skins/circlered.png")
                     color3 = pygame.image.load("Skins/circlegreen.png")
                     color4 = pygame.image.load("Skins/circleyellow.png")
                     color5 = pygame.image.load("Skins/circlepurple.png")                     
-                    screen.blit(ball, (99, 220))
-                    screen.blit(heart_dark, (401, 219))
-                    screen.blit(star_dark, (225, 115))
-                
-                #Escolher Coração #Colocar para só quem já desbloqueou usar
-                if 400 < j < 500 and 225 < i < 325: 
+                    screen.blit(background_circle, (0, 0))
+                    
+                #Escolher Coração
+                if 400 < j < 500 and 265 < i < 365: 
+                    bg = "heart"
                     color1 = pygame.image.load("Skins/heartblue.png")
                     color2 = pygame.image.load("Skins/heartred.png")
                     color3 = pygame.image.load("Skins/heartgreen.png")
                     color4 = pygame.image.load("Skins/heartyellow.png")
                     color5 = pygame.image.load("Skins/heartpurple.png")    
-                    screen.blit(ball_dark, (99, 220))
-                    screen.blit(heart, (401, 219))
-                    screen.blit(star_dark, (225, 115))
+                    screen.blit(background_heart, (0, 0))
                 
-                #Escolher Estrela #Colocar para só quem já desbloqueou usar
-                if 225 < j < 375 and 115 < i < 270: 
+                #Escolher Estrela
+                if 225 < j < 380 and 160 < i < 315:
+                    bg = "star"
                     color1 = pygame.image.load("Skins/starblue.png")
                     color2 = pygame.image.load("Skins/starred.png")
                     color3 = pygame.image.load("Skins/stargreen.png")
                     color4 = pygame.image.load("Skins/staryellow.png")
                     color5 = pygame.image.load("Skins/starpurple.png")                
-                    screen.blit(ball_dark, (99, 220))
-                    screen.blit(heart_dark, (401, 219))
-                    screen.blit(star, (225, 115))
-
+                    screen.blit(background_star, (0, 0))
             #Sair do Jogo        
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
-          
         pygame.display.flip()
 
 #INICIADOR
 if __name__ == "__main__":
-    main_menu()
+    color1 = pygame.image.load("Skins/circleblue.png")
+    color2 = pygame.image.load("Skins/circlered.png")
+    color3 = pygame.image.load("Skins/circlegreen.png")
+    color4 = pygame.image.load("Skins/circleyellow.png")
+    color5 = pygame.image.load("Skins/circlepurple.png")
+    main_menu(color1, color2, color3, color4, color5, "circle")
