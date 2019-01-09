@@ -1,10 +1,10 @@
-# To Do APP for FPRO
+# Game for FPRO
 
-Simple To Do App made in python, with module PyQT.
+Simple game made in python, with module PyGame.
 
 ### Prerequisites
 
-PyQT5 installed
+PyGame installed
 
     try one of the following commands under the cmd:
     ```
@@ -25,7 +25,9 @@ PyQT5 installed
 
 ## Authors
 
-* **Diogo Samuel Fernandes** - *Main work* - [up201806250]## Acknowledgments
+* **Diogo Samuel Fernandes** - *Main work* - [up201806250]
+
+## Acknowledgments
 
 * **Ricardo Cruz** - *Supervisor* - [rpcruz](rpcruz@fe.up.pt)
 
