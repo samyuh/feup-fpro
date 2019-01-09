@@ -29,7 +29,7 @@ PyGame installed
 
 ## Acknowledgments
 
-* **Ricardo Cruz** - *Supervisor* - [rpcruz](rpcruz@fe.up.pt)
+* **Ricardo Cruz** - *Supervisor* - [rpcruz] rpcruz@fe.up.pt
 
 ## Game Screenshot
 
