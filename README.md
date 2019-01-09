@@ -6,7 +6,7 @@ Simple game made in python, with module PyGame.
 
 PyGame installed
 
-    try one of the following commands under the cmd:
+    try one of the following commands under the anaconda propmt or terminal:
     ```
     pip install pygame
     
