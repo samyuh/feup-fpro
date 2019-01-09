@@ -31,4 +31,6 @@ PyGame installed
 
 * **Ricardo Cruz** - *Supervisor* - [rpcruz](rpcruz@fe.up.pt)
 
+## Game Screenshot
+
 ![Game Screenshot](Bubble/Screenshot.png "Game Screenshot")
