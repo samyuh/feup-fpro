@@ -27,7 +27,7 @@ PyGame installed
 
 ## Authors
 
-* **Diogo Samuel Fernandes** - *Main work* - up201806250
+* **Diogo Samuel Fernandes** - *Main work* - up201806250 - up201806250@fe.up.pt
 
 ## Acknowledgments
 
