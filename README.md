@@ -1,6 +1,7 @@
 # Game for FPRO
 
 Simple game made in python, with module PyGame.
+The original version of the game is called [Bubblets](https://en.wikipedia.org/wiki/Jawbreaker_(Windows_Mobile_game)), and was popularized as "Jawbreaker" by Windows Mobile 2003.
 
 ### Prerequisites
 
@@ -25,11 +26,11 @@ PyGame installed
 
 ## Authors
 
-* **Diogo Samuel Fernandes** - *Main work* - [up201806250]
+* **Diogo Samuel Fernandes** - *Main work* - up201806250
 
 ## Acknowledgments
 
-* **Ricardo Cruz** - *Supervisor* - [rpcruz] rpcruz@fe.up.pt
+* **Ricardo Cruz** - *Supervisor* - rpcruz - rpcruz@fe.up.pt
 
 ## Game Screenshot
 
